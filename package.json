@@ -1,18 +1,31 @@
 {
-  "dependencies": {
-    "body-parser": "^1.20.3",
-    "ejs": "^3.1.10",
-    "express": "^4.21.2",
-    "nodemon": "^3.1.9"
-  },
   "name": "todoapp",
   "version": "1.0.0",
-  "main": "server.js",
-  "devDependencies": {},
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sedtyldz/ToDoApp_Nodejs.git"
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "bugs": {
+    "url": "https://github.com/sedtyldz/ToDoApp_Nodejs/issues"
+  },
+  "homepage": "https://github.com/sedtyldz/ToDoApp_Nodejs#readme",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.10",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2"
+  }
 }

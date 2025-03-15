@@ -8,4 +8,14 @@ npm install nodemon -> this package fetchs the changes and you do not need to st
 npm install express -> this package is a framework to manage request and response
 npm install ejs -> this package can help running js codes in html files
 npm install body-parser -> this package helps with getting input from html pages via response body
+
+// this packages helps with running  typescript codes with nodemon
+npm install --save-dev ts-node nodemon   
+npm install --save-dev @types/node @types/express 
+
+
 ```
+
+
+## Run Code 
+nodemon --watch src --ext ts --exec "ts-node src/server.ts"
