@@ -45,6 +45,4 @@ Bu projede aşağıdaki teknolojiler ve kütüphaneler kullanılmıştır:
 
 
 
-```bash
-
 
