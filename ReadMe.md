@@ -27,14 +27,14 @@ Bu projede aşağıdaki teknolojiler ve kütüphaneler kullanılmıştır:
 - npm install ejs
 
 
-TodoApp/
-│── public/          # CSS ve JS dosyaları
-│── views/           # EJS şablonları (index.ejs)
-│── routes/          # API rotaları (tasks.js)
-│── models/          # Mongoose modelleri (task.js)
-│── server.js        # Ana sunucu dosyası
-│── package.json     # Bağımlılıklar
-│── README.md        # Proje dökümantasyonu
+### TodoApp/
+─ public/          # CSS ve JS dosyaları
+─ views/           # EJS şablonları (index.ejs)
+─ routes/          # API rotaları (tasks.js)
+─ models/          # Mongoose modelleri (task.js)
+─ server.js        # Ana sunucu dosyası
+─ package.json     # Bağımlılıklar
+─ README.md        # Proje dökümantasyonu
 
 
 
