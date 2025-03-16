@@ -50,4 +50,16 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+
+// Tüm verileri silme (Yeni endpoint)
+router.post('/clearAll', async (req, res) => {
+    try {
+      await Task.deleteMany();  // MongoDB'den tüm görevleri sil
+      res.status(200).send('All tasks have been cleared.');
+    } catch (err) {
+      res.status(500).send("Server Error");
+    }
+  });
+  
+
 module.exports = router;

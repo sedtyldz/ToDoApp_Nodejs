@@ -170,10 +170,10 @@ body.dark-mode button:hover {
     background-color: #4CAF50;
     color: #fff;
 }
-  
+
 /* Dark mode toggle button */
 .dark-mode-toggle {
-    position: absolute;
+    position: fixed; /* Sabit pozisyon */
     top: 20px;
     right: 20px;
     background-color: #4CAF50;
@@ -184,7 +184,7 @@ body.dark-mode button:hover {
     border-radius: 5px;
     cursor: pointer;
 }
-  
+
 .dark-mode-toggle:hover {
     background-color: #45a049;
 }
@@ -198,8 +198,10 @@ body.dark-mode button:hover {
     font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 20px;
     transition: background-color 0.3s;
+    position: fixed; /* Sabit pozisyon */
+    bottom: 20px; 
+    right: 20px; /* Sağ altta hizalama */
 }
 
 .clear-data-btn:hover {
@@ -215,11 +217,10 @@ body.dark-mode .clear-data-btn {
     font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 20px;
     transition: background-color 0.3s;
-    position: absolute;
+    position: fixed; /* Sabit pozisyon */
     bottom: 20px;
-    right: 20px;
+    right: 20px; /* Sağ altta hizalama */
 }
 
 body.dark-mode .clear-data-btn:hover {
@@ -230,7 +231,7 @@ body.dark-mode .clear-data-btn:hover {
 li.done .task-dot {
     background-color: green;
 }
-  
+
 /* Responsive Tasarım */
 @media (max-width: 768px) {
     .list-headers {
@@ -253,7 +254,7 @@ li.done .task-dot {
         
     }
 }
-  
+
 @media (max-width: 480px) {
     body {
         padding: 20px;

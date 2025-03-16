@@ -1,3 +1,4 @@
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -5,9 +6,9 @@ const path = require('path');
 const TaskRouter = require('./routes/tasks');  // API router'ını dahil ediyorum
 const Task = require('./models/task');  // Task modelini dahil ediyorum
 
-const app = express();
+const app = express(); // Express uygulamasını oluşturuyoruz
 
-// Body parser middleware
+// bu sayede http isteklerini işleyip request'in body kısmında gelen verilere erişebiliyoruz
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -23,45 +24,15 @@ mongoose.connect('mongodb://localhost/todoApp', { useNewUrlParser: true, useUnif
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
 
-// Veritabanını temizleme fonksiyonu
-async function clearAllData() {
-  try {
-    // Task modelinden tüm verileri silme
-    await Task.deleteMany({});
-    console.log("Tüm veriler silindi");
-  } catch (error) {
-    console.error("Veri silme sırasında hata oluştu", error);
-  }
-}
-
-// Tüm görevleri temizlemek için route ekliyoruz
-app.post('/clear-data', async (req, res) => {
-  try {
-    // MongoDB'deki tüm verileri sil
-    const result = await Task.deleteMany({});
-    
-    // Eğer silme başarılıysa ve veritabanı boşsa
-    if (result.deletedCount > 0) {
-      res.status(200).send('Veriler başarıyla temizlendi');
-    } else {
-      // Eğer hiç veri silinmediyse
-      res.status(404).send('Silinecek veri bulunamadı');
-    }
-  } catch (err) {
-    console.error("Veri temizleme işlemi sırasında hata oluştu:", err);
-    res.status(500).send('Veri temizleme işlemi başarısız');
-  }
-});
-
 // Main page route
 app.get('/', (req, res) => {
-  res.render('index', { darkMode: false });  // Eğer darkMode verisi varsa burada true yapalım
+  res.render('index', { darkMode: false });  
 });
 
 // API Routes
 app.use('/api/tasks', TaskRouter);
 
 // Server listening
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
+app.listen(3004, () => {
+  console.log("Server running on http://localhost:3004");
 });

@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To-Do List</title>
   <link rel="stylesheet" href="css/styles.css">
+  <script defer src="js/main.js"></script>
 </head>
 <body class="<%= darkMode ? 'dark-mode' : '' %>">
-  <button id="dark-mode-toggle" class="dark-mode-toggle">🌙 Dark Mode</button>
-  <button class="clear-data-btn" onclick="confirmClearData()">Tüm Verileri Sil</button>
   <div class="container">
+    <div class="top-buttons">
+      <button id="dark-mode-toggle" class="dark-mode-toggle">🌙 Dark Mode</button>
+      <button class="clear-data-btn" onclick="confirmClearData()">Tüm Verileri Sil</button>
+    </div>
     <h2>To-Do List</h2>
     <input type="text" id="todoItem" placeholder="Yeni görev ekleyin" required>
     <button id="addTask">Ekle</button>
@@ -26,119 +29,5 @@
     <!-- Görev Satırları -->
     <ul id="taskList"></ul>
   </div>
-
-  <script>
-    // Dark mode toggle
-    document.getElementById("dark-mode-toggle").addEventListener("click", function() {
-      document.body.classList.toggle("dark-mode");
-      localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
-    });
-    if (localStorage.getItem("darkMode") === "true") {
-      document.body.classList.add("dark-mode");
-    }
-
-    // Yeni görev ekleme
-    document.getElementById("addTask").addEventListener("click", async function() {
-      const taskText = document.getElementById("todoItem").value;
-      if (!taskText) return;
-      const response = await fetch('/api/tasks', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ task: taskText })
-      });
-      const newTask = await response.json();
-      addTaskToList(newTask);
-      document.getElementById("todoItem").value = '';
-    });
-
-    // Verileri silmek için onay isteme
-    function confirmClearData() {
-      const userConfirmed = confirm("Tüm verileri silmek istediğinizden emin misiniz?");
-      if (userConfirmed) {
-        clearAllData(); // Verileri temizleyen fonksiyon
-      }
-    }
-
-    // Tüm verileri silme
-    async function clearAllData() {
-      try {
-        const response = await fetch('/clear-data', {
-          method: 'POST',
-        });
-        const message = await response.text();
-        alert(message); // Kullanıcıya başarı mesajını göster
-        document.getElementById('taskList').innerHTML = ''; // Listeyi temizle
-      } catch (err) {
-        alert("Veri temizleme işlemi başarısız");
-      }
-    }
-
-    // Görev satırını oluşturma (her satır, kolonlar halinde)
-    function addTaskToList(task) {
-      const taskList = document.getElementById("taskList");
-      const li = document.createElement("li");
-      li.setAttribute('data-id', task._id);
-      li.innerHTML = `
-        <div class="col-dot">
-          <div class="task-dot" style="background-color: ${task.status === 'done' ? 'green' : 'red'}"></div>
-        </div>
-        <div class="col-task">${task.task}</div>
-        <div class="col-date">${new Date(task.createdAt).toLocaleDateString()}</div>
-        <div class="col-status">${task.status === 'done' ? 'Yapıldı' : 'Yapılmadı'}</div>
-        <div class="col-actions">
-          <input type="checkbox" ${task.status === 'done' ? 'checked' : ''} onclick="toggleDone('${task._id}')">
-          <button onclick="deleteTask('${task._id}')">Sil</button>
-          <button onclick="editTask('${task._id}')">Güncelle</button>
-        </div>
-      `;
-      taskList.appendChild(li);
-    }
-
-    // Silme fonksiyonu
-    async function deleteTask(id) {
-      await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
-      document.querySelector(`[data-id='${id}']`).remove();
-    }
-
-    // Güncelleme fonksiyonu
-    async function editTask(id) {
-      const newText = prompt("Yeni görev adını girin:");
-      if (newText) {
-        const response = await fetch(`/api/tasks/${id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ task: newText })
-        });
-        const updatedTask = await response.json();
-        const li = document.querySelector(`[data-id='${id}']`);
-        li.querySelector('.col-task').textContent = updatedTask.task;
-      }
-    }
-
-    // Durum değiştirme (checkbox) fonksiyonu
-    async function toggleDone(id) {
-      const li = document.querySelector(`[data-id='${id}']`);
-      const checkbox = li.querySelector('input[type="checkbox"]');
-      const newStatus = checkbox.checked ? 'done' : 'not-done';
-      await fetch(`/api/tasks/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus })
-      });
-      // Noktanın rengini güncelle:
-      li.querySelector('.task-dot').style.backgroundColor = newStatus === 'done' ? 'green' : 'red';
-      // Durum yazısını güncelle:
-      li.querySelector('.col-status').textContent = newStatus === 'done' ? 'Yapıldı' : 'Yapılmadı';
-    }
-
-    // Görevleri yükleme
-    async function loadTasks() {
-      const response = await fetch('/api/tasks');
-      const tasks = await response.json();
-      tasks.forEach(task => addTaskToList(task));
-    }
-
-    loadTasks();
-  </script>
 </body>
 </html>
