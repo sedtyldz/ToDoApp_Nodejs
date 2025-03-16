@@ -28,13 +28,13 @@ Bu projede aşağıdaki teknolojiler ve kütüphaneler kullanılmıştır:
 
 
 ### TodoApp/
-─ public/          # CSS ve JS dosyaları
-─ views/           # EJS şablonları (index.ejs)
-─ routes/          # API rotaları (tasks.js)
-─ models/          # Mongoose modelleri (task.js)
-─ server.js        # Ana sunucu dosyası
-─ package.json     # Bağımlılıklar
-─ README.md        # Proje dökümantasyonu
+- public/          # CSS ve JS dosyaları
+- views/           # EJS şablonları (index.ejs)
+- routes/          # API rotaları (tasks.js)
+- models/          # Mongoose modelleri (task.js)
+- server.js        # Ana sunucu dosyası
+- package.json     # Bağımlılıklar
+- README.md        # Proje dökümantasyonu
 
 
 
